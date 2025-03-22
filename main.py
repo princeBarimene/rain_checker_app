@@ -6,16 +6,19 @@ from pprint import pprint
 
 load_dotenv()  # take environment variables from .env.
 
-API_KEY = os.getenv('api_key')
-lat = os.getenv('lat')
-lon = os.getenv('lon') 
+OWM_Endpoint ="https://api.openweathermap.org/data/2.5/forecast"
+weather_params = {
+    "appid" : os.getenv('api_key'),
+    "lat" : os.getenv('lat'),
+    "lon" : os.getenv('lon'), 
+    "cnt" : 4
+}
 
-url = f"https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API_KEY}"
 
-
-response = requests.get(url=url)
+response = requests.get(OWM_Endpoint, params=weather_params)
 
 data = response.json()
+pprint(data)
 
 
 
