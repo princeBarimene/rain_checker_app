@@ -19,6 +19,17 @@ response = requests.get(OWM_Endpoint, params=weather_params)
 
 data = response.json()
 
+will_rain = False
+for hour_data in data['list']:
+    condition_code = hour_data['weather'][0]['id']
+    if  condition_code < 700:
+        will_rain = True
+
+if will_rain:
+    print("Bring an Umbrela")
+    
+
+
 
 
 
