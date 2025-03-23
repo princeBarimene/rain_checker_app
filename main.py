@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import os
 import json
 from pprint import pprint
+from twilio.rest import Client
 
 load_dotenv()  # take environment variables from .env.
 
@@ -26,7 +27,25 @@ for hour_data in data['list']:
         will_rain = True
 
 if will_rain:
-    print("Bring an Umbrela")
+    account_sid = os.environ["TWILIO_ACCOUNT_SID"]
+    auth_token = os.environ["TWILIO_AUTH_TOKEN"]
+    client = Client(account_sid, auth_token)
+    message = client.messages.create(
+    from_="whatsapp:+14155238886",
+    body="It's going to rain today. Remember to bring an umbrella",
+   
+    to="whatsapp:+447469925663")
+
+    print(message.status)
+    
+
+
+
+
+
+
+
+    
     
 
 
