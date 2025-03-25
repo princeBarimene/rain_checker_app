@@ -12,6 +12,7 @@ weather_params = {
     "appid" : os.getenv('api_key'),
     "lat" : os.getenv('lat'),
     "lon" : os.getenv('lon'), 
+  
     "cnt" : 4
 }
 
@@ -31,10 +32,21 @@ if will_rain:
     auth_token = os.environ["TWILIO_AUTH_TOKEN"]
     client = Client(account_sid, auth_token)
     message = client.messages.create(
-    from_="whatsapp:+14155238886",
+    from_=f'whatsapp:{os.environ["free_number_from_twilio"]}',
     body="It's going to rain today. Remember to bring an umbrella",
    
-    to="whatsapp:+447469925663")
+    to=f'whatsapp:{os.environ["target_phone_nunmber"]}')
+
+    print(message.status)
+else:
+    account_sid = os.environ["TWILIO_ACCOUNT_SID"]
+    auth_token = os.environ["TWILIO_AUTH_TOKEN"]
+    client = Client(account_sid, auth_token)
+    message = client.messages.create(
+    from_=f'whatsapp:{os.environ["free_number_from_twilio"]}',
+    body="It won't rain today... Its our lucky day.",
+   
+    to=f'whatsapp:{os.environ["target_phone_nunmber"]}')
 
     print(message.status)
     
